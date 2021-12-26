@@ -27,19 +27,22 @@ var fight = function(enemyName) {
         break;
       }
     }
+    // // remove enemy's health by subtracting the amount set in the playerAttack variable
+    // enemyHealth = Math.max(0, enemyHealth - playerAttack);
+    // console.log(
+    //   playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
+    // );
 
-    // remove enemy's health by subtracting the amount set in the playerAttack variable
-    enemyHealth = enemyHealth - playerAttack;
-    console.log(
-      playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
-    );
+    // generate random damage value based on player's attack power
+    var damage = randomNumber(playerAttack - 3, playerAttack);
+    enemyHealth = Math.max(0, enemyHealth - damage);
 
     // check enemy's health
     if (enemyHealth <= 0) {
       window.alert(enemyName + ' has died!');
 
       // award player money for winning
-      playerMoney = playerMoney + 20;
+      playerMoney = Math.max(0, playerMoney + 20);
 
       // leave while() loop since enemy is dead
       break;
@@ -48,10 +51,12 @@ var fight = function(enemyName) {
     }
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
-    playerHealth = playerHealth - enemyAttack;
-    console.log(
-      enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
-    );
+    // playerHealth = Math.max(0, playerHealth - enemyAttack);
+    // console.log(
+    //   enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
+    // );
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
 
     // check player's health
     if (playerHealth <= 0) {
@@ -82,7 +87,7 @@ var startGame = function(){
         var pickedEnemyName = enemyNames[i];
 
         // reset enemyHealth before starting new fight
-        enemyHealth = 50;
+        enemyHealth = randomNumber();
 
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
@@ -136,7 +141,7 @@ var shop = function(){
 
     //use switch to cary out actions
     switch (shopOptionPrompt){
-        case "REFILL": //new case
+        case "REFILL": //new casedxxxxx
         case "refill":
             if (playerMoney >= 7) {
             window.alert("Refilling player's health by 20 for 7 dollars.");
@@ -177,5 +182,13 @@ var shop = function(){
     }
 }
 
+//function to generate a random numeric value
+var randomNumber = function(min, max) {
+    var value = Math.floor(Math.random() * (21) + 40);
+
+    return value;
+}
+
 // start the game when the page loads
 startGame();
+
